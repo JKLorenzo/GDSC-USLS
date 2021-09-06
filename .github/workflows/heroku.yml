@@ -1,0 +1,32 @@
+name: Heroku
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node v16
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Deploy
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_app_name: 'gdsc-usls'
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          procfile: 'worker: node ./dist/main.js'
+          buildpack: 'https://github.com/heroku/heroku-buildpack-nodejs.git'
+        env:
+          HD_BOT_TOKEN: ${{secrets.BOT_TOKEN}}
