@@ -1,4 +1,6 @@
 import { Client, Intents } from 'discord.js';
+import { initInteraction } from './managers/interaction.js';
+import { initTelemetry } from './modules/telemetry.js';
 
 export const client = new Client({
   allowedMentions: {
@@ -12,8 +14,11 @@ export const client = new Client({
   },
 });
 
-client.on('ready', () => {
+client.on('ready', async () => {
   console.log('online');
+  initTelemetry();
+  await initInteraction();
+  console.log('initialized');
 });
 
 client.login(process.env.BOT_TOKEN!);
