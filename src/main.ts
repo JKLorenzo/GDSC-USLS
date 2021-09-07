@@ -1,4 +1,5 @@
 import { Client, Intents } from 'discord.js';
+import { initGateway } from './managers/gateway.js';
 import { initInteraction } from './managers/interaction.js';
 import { initTelemetry } from './modules/telemetry.js';
 
@@ -18,6 +19,7 @@ client.on('ready', async () => {
   console.log('online');
   await initTelemetry();
   await initInteraction();
+  await initGateway();
   console.log('initialized');
 });
 
