@@ -16,7 +16,7 @@ export const client = new Client({
 
 client.on('ready', async () => {
   console.log('online');
-  initTelemetry();
+  await initTelemetry();
   await initInteraction();
   console.log('initialized');
 });
