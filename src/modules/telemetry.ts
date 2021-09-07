@@ -23,9 +23,9 @@ export function initTelemetry(): void {
 }
 
 export function logError(name: string, title: string, error: unknown): void {
-  console.error(error);
+  console.error({ name, title, error });
 }
 
 export function logMessage(name: string, message: string): void {
-  console.log(message);
+  console.log({ name, message });
 }
