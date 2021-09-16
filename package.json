@@ -33,12 +33,14 @@
   },
   "homepage": "https://github.com/JKLorenzo/GDSC-USLS#readme",
   "dependencies": {
+    "common-tags": "^1.8.0",
     "discord.js": "^13.1.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@types/common-tags": "^1.8.1",
     "@types/lodash": "^4.14.172",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
     "@typescript-eslint/parser": "^4.31.0",
