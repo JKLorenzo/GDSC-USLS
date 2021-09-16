@@ -15,11 +15,11 @@ export default class Message extends Command {
       'guild',
       {
         name: 'message',
-        description: 'Sends a message to a channel or a user.',
+        description: '[Core] Sends a message to a channel or a user.',
         options: [
           {
             name: 'channel',
-            description: 'Sends a message to a channel.',
+            description: '[Core] Sends a message to a channel.',
             type: 'SUB_COMMAND',
             options: [
               {
@@ -38,7 +38,7 @@ export default class Message extends Command {
           },
           {
             name: 'user',
-            description: 'Sends a message to a user.',
+            description: '[Core] Sends a message to a user.',
             type: 'SUB_COMMAND',
             options: [
               {

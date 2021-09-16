@@ -19,7 +19,7 @@ export default class Sudo extends Command {
       'guild',
       {
         name: 'sudo',
-        description: 'Executes a command as a superuser.',
+        description: '[Core] Executes a command as a superuser.',
         type: 'CHAT_INPUT',
         defaultPermission: false,
         options: [
