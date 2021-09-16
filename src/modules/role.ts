@@ -1,5 +1,5 @@
 import { CreateRoleOptions, Guild, GuildMember, Role } from 'discord.js';
-import Queuer from '../utils/queuer';
+import Queuer from '../utils/queuer.js';
 
 const maxRoles = 250;
 const queuer = new Queuer(500);
