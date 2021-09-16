@@ -25,13 +25,11 @@ export default class Rules extends Component {
   }
 
   async exec(interaction: MessageComponentInteraction): Promise<void> {
-    if (limiter.limit(interaction.user.id)) {
-      await interaction.reply({
-        content: 'Thank you for making this server a safe and friendly community!',
-        ephemeral: true,
-      });
-    } else {
-      await interaction.deferUpdate();
-    }
+    if (limiter.limit(interaction.user.id)) return interaction.deferUpdate();
+
+    await interaction.reply({
+      content: 'Thank you for making this server a safe and friendly community!',
+      ephemeral: true,
+    });
   }
 }
