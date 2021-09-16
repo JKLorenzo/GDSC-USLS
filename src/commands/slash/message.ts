@@ -117,7 +117,7 @@ const rules: MessagePayload | MessageOptions = {
       'know. We want this server to be a welcoming space.',
     '',
     'This server also follows the Community Guidelines set by Discord; and you can read more of it ' +
-      'here: https://discord.com/guidelines',
+      'here: <https://discord.com/guidelines>',
   ].join('\n'),
   components: getComponent('rules'),
 };
