@@ -6,8 +6,8 @@ import Discord, {
   MessageActionRowOptions,
   MessageComponentInteraction,
 } from 'discord.js';
+import { logError, logMessage } from './telemetry.js';
 import { client } from '../main.js';
-import { logError, logMessage } from '../modules/telemetry.js';
 import Command from '../structures/command.js';
 import Component from '../structures/component.js';
 import { getFiles } from '../utils/functions.js';

@@ -1,7 +1,7 @@
 import { Client, Intents } from 'discord.js';
 import { initGateway } from './managers/gateway.js';
 import { initInteraction } from './managers/interaction.js';
-import { initTelemetry } from './modules/telemetry.js';
+import { initTelemetry } from './managers/telemetry.js';
 
 export const client = new Client({
   allowedMentions: {

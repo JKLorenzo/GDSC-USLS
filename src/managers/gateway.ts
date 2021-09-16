@@ -1,7 +1,7 @@
 import { GuildMember } from 'discord.js';
+import { logError } from './telemetry.js';
 import { client } from '../main.js';
 import { addRole } from '../modules/role.js';
-import { logError } from '../modules/telemetry.js';
 import constants from '../utils/contants.js';
 
 export function initGateway(): void {

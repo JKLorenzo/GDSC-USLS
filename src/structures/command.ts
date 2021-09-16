@@ -9,7 +9,7 @@ import {
 } from 'discord.js';
 import _ from 'lodash';
 import { client } from '../main.js';
-import { logMessage } from '../modules/telemetry.js';
+import { logMessage } from '../managers/telemetry.js';
 import { GuildCommandOptions } from '../utils/types.js';
 
 export default abstract class Command {
