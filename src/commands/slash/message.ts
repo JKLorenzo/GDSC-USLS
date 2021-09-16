@@ -16,6 +16,8 @@ export default class Message extends Command {
       {
         name: 'message',
         description: '[Core] Sends a message to a channel or a user.',
+        type: 'CHAT_INPUT',
+        defaultPermission: false,
         options: [
           {
             name: 'channel',
