@@ -11,7 +11,7 @@ export default class Purge extends Command {
         name: 'purge',
         description: 'Removes a number of messages on the current channel.',
         type: 'CHAT_INPUT',
-        defaultPermission: true,
+        defaultPermission: false,
         options: [
           {
             name: 'message_count',
