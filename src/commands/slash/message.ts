@@ -79,7 +79,7 @@ export default class Message extends Command {
     const content = interaction.options.getString('content', true);
     let result;
     if (subcommand === 'channel') {
-      const channel = interaction.options.getChannel('channel', true) as GuildChannel;
+      const channel = interaction.options.getChannel('target', true) as GuildChannel;
       if (!(channel instanceof TextChannel)) {
         return interaction.editReply('This channel is not a text channel. Please try again.');
       }
