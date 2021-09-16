@@ -99,7 +99,8 @@ function parse(message: string): string | MessagePayload | MessageOptions {
 
 const rules = [
   '**__SERVER RULES__**',
-  'This list does not constitute the full set of rules, and our Moderators may take' +
+  '',
+  'This list does not constitute the full set of rules, and our Moderators may take ' +
     'action on misbehavior and violations that are not explicitly listed below:',
   '',
   '1️⃣ Treat everyone with respect. Absolutely no harassment, sexism, racism, or hate speech will be tolerated.',
