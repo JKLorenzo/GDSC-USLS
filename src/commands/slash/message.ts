@@ -5,6 +5,7 @@ import {
   MessagePayload,
   TextChannel,
 } from 'discord.js';
+import { getComponent } from '../../managers/interaction.js';
 import { sendToChannel, sendToUser } from '../../modules/message.js';
 import Command from '../../structures/command.js';
 import constants from '../../utils/contants.js';
@@ -97,23 +98,26 @@ function parse(message: string): string | MessagePayload | MessageOptions {
   return message;
 }
 
-const rules = [
-  '**__SERVER RULES__**',
-  '',
-  'This list does not constitute the full set of rules, and our Moderators may take ' +
-    'action on misbehavior and violations that are not explicitly listed below:',
-  '',
-  '1️⃣ Treat everyone with respect. Absolutely no harassment, sexism, racism, or hate speech will be tolerated.',
-  '',
-  '2️⃣ No spam or self-promotion (server invites, advertisements, etc) without permission ' +
-    'from a staff member. This includes DMing fellow members.',
-  '',
-  '3️⃣ No NSFW or obscene content. This includes text, images, or links featuring nudity, sex ' +
-    'hard violence, or other graphically disturbing content.',
-  '',
-  '4️⃣ If you see something against the rules or something that makes you feel unsafe, let staff ' +
-    'know. We want this server to be a welcoming space.',
-  '',
-  'This server also follows the Community Guidelines set by Discord; and you can read more of it ' +
-    'here: https://discord.com/guidelines',
-].join('\n');
+const rules: MessagePayload | MessageOptions = {
+  content: [
+    '**__SERVER RULES__**',
+    '',
+    'This list does not constitute the full set of rules, and our Moderators may take ' +
+      'action on misbehavior and violations that are not explicitly listed below:',
+    '',
+    '1️⃣ Treat everyone with respect. Absolutely no harassment, sexism, racism, or hate speech will be tolerated.',
+    '',
+    '2️⃣ No spam or self-promotion (server invites, advertisements, etc) without permission ' +
+      'from a staff member. This includes DMing fellow members.',
+    '',
+    '3️⃣ No NSFW or obscene content. This includes text, images, or links featuring nudity, sex ' +
+      'hard violence, or other graphically disturbing content.',
+    '',
+    '4️⃣ If you see something against the rules or something that makes you feel unsafe, let staff ' +
+      'know. We want this server to be a welcoming space.',
+    '',
+    'This server also follows the Community Guidelines set by Discord; and you can read more of it ' +
+      'here: https://discord.com/guidelines',
+  ].join('\n'),
+  components: getComponent('rules'),
+};
