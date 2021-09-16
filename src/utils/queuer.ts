@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 
-import { Snowflake } from 'discord.js';
 import { sleep } from './functions.js';
-
-const _queuers = new Map<string, Queuer>();
 
 type queue_item = {
   function: Function;
@@ -13,14 +10,7 @@ type queue_item = {
   };
 };
 
-export function queuerOf(guildId: Snowflake): Queuer {
-  if (!_queuers.has(guildId)) {
-    _queuers.set(guildId, new Queuer(500));
-  }
-  return _queuers.get(guildId)!;
-}
-
-export class Queuer {
+export default class Queuer {
   private timeout: number;
   private running = false;
   private queued = [] as queue_item[];
