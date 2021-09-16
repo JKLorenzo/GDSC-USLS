@@ -9,13 +9,13 @@ export default class Purge extends Command {
       'guild',
       {
         name: 'purge',
-        description: 'Removes a number of messages on the current channel.',
+        description: '[Core] Removes a number of messages on the current channel.',
         type: 'CHAT_INPUT',
         defaultPermission: false,
         options: [
           {
             name: 'message_count',
-            description: '[Core] The number of messages to delete.',
+            description: 'The number of messages to delete.',
             type: 'INTEGER',
             required: true,
           },
