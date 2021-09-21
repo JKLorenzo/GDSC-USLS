@@ -10,6 +10,12 @@ export const client = new Client({
   },
   intents: [Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS],
   presence: {
+    activities: [
+      {
+        name: '/',
+        type: 'LISTENING',
+      },
+    ],
     status: 'online',
     afk: false,
   },
