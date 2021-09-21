@@ -45,7 +45,8 @@ export default class Verify extends Component {
       member,
       [
         `Hi ${member.user.username}! Welcome to the official community server of GDSC-USLS.`,
-        'For verification purposes, we will ask you 4 questions and will be given a minute to answer each question.',
+        'For verification purposes, we will ask you 4 questions ' +
+          'and you will be given a minute to answer each question.',
       ].join('\n'),
     );
 
