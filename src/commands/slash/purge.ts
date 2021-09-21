@@ -74,7 +74,7 @@ export default class Purge extends Command {
       affected.push(`${elements[0]}: ${elements[1]}`);
     }
 
-    await interaction.editReply({
+    const feedback = (await interaction.editReply({
       embeds: [
         new MessageEmbed({
           author: { name: 'Channel Message Cleanup' },
@@ -93,6 +93,10 @@ export default class Purge extends Command {
           color: '#FFFF00',
         }),
       ],
-    });
+    })) as Message;
+
+    await sleep(5000);
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    if (feedback.deletable) await feedback.delete().catch(() => {});
   }
 }
