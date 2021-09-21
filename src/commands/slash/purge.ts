@@ -35,7 +35,7 @@ export default class Purge extends Command {
     const channel = interaction.channel as TextChannel;
     const message_count = interaction.options.getInteger('message_count', true);
 
-    await interaction.deferReply();
+    await interaction.deferReply({ ephemeral: true });
 
     let retries = 3;
     let deleted_count = 0;
@@ -74,7 +74,7 @@ export default class Purge extends Command {
       affected.push(`${elements[0]}: ${elements[1]}`);
     }
 
-    const feedback = (await interaction.editReply({
+    await interaction.editReply({
       embeds: [
         new MessageEmbed({
           author: { name: 'Channel Message Cleanup' },
@@ -93,10 +93,6 @@ export default class Purge extends Command {
           color: '#FFFF00',
         }),
       ],
-    })) as Message;
-
-    await sleep(5000);
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    if (feedback.deletable) await feedback.delete().catch(() => {});
+    });
   }
 }
