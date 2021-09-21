@@ -134,6 +134,7 @@ export default class Verify extends Component {
           .awaitMessageComponent({ componentType: 'BUTTON', time: 10000 })
           .then(res => {
             if (res.customId === 'yes') retry = true;
+            if (res.customId === 'no') cancel = true;
           })
           .catch(() => {
             cancel = true;
