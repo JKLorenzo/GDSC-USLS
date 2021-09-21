@@ -6,7 +6,7 @@ import constants from '../utils/contants.js';
 import { sleep } from '../utils/functions.js';
 import Limiter from '../utils/limiter.js';
 
-const limiter = new Limiter(300000);
+const limiter = new Limiter(60000);
 
 export default class Verify extends Component {
   constructor() {
@@ -89,9 +89,7 @@ export default class Verify extends Component {
       if (result.size === 0) throw new Error();
       nickname = [...result.values()][0].content;
     } catch (error) {
-      return dm.send(
-        'You failed to answer the question on time. Please try again after 5 minutes.',
-      );
+      return dm.send('You failed to answer the question on time. Please try again after a minute.');
     }
 
     await dm.send("That's it! Please wait while our staff is reviewing your application.");
