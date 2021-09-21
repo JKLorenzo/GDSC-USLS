@@ -14,6 +14,7 @@ export default {
     member: '884284885257289778',
   },
   channels: {
+    member_screening: '889760313556209695',
     bot_logs: '884711570242961408',
   },
 };
