@@ -3,6 +3,7 @@ import { getComponent } from '../managers/interaction.js';
 import { sendToChannel, sendToUser } from '../modules/message.js';
 import Component from '../structures/component.js';
 import constants from '../utils/contants.js';
+import { sleep } from '../utils/functions.js';
 import Limiter from '../utils/limiter.js';
 
 const limiter = new Limiter(300000);
@@ -50,6 +51,7 @@ export default class Verify extends Component {
     let result, name, section, id, nickname;
 
     const dm = await member.createDM();
+    await sleep(5000);
     try {
       await dm.send('**1) Please enter your complete name.**');
       result = await dm.awaitMessages({
