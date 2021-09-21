@@ -139,7 +139,10 @@ export default class Verify extends Component {
           .awaitMessageComponent({ componentType: 'BUTTON', time: 10000 })
           .then(res => {
             if (res.customId === 'yes') retry = true;
-            if (res.customId === 'no') cancel = true;
+            if (res.customId === 'no') {
+              cancel = true;
+              dm.send('You have canceled this verification process.');
+            }
           })
           .catch(() => {
             cancel = true;
@@ -212,7 +215,10 @@ export default class Verify extends Component {
           .awaitMessageComponent({ componentType: 'BUTTON', time: 60000 })
           .then(res => {
             if (res.customId === 'retry') retry = true;
-            if (res.customId === 'cancel') cancel = true;
+            if (res.customId === 'cancel') {
+              cancel = true;
+              dm.send('You have canceled this verification process.');
+            }
           })
           .catch(() => {
             cancel = true;
