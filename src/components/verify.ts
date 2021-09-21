@@ -51,18 +51,22 @@ export default class Verify extends Component {
     );
 
     let result,
-      retry = false,
       name = '',
       section = '',
       id = '',
       nickname = '';
 
+    let retry = false,
+      hasError = false,
+      cancel = false;
+
     const dm = await member.createDM();
     await sleep(5000);
 
     do {
-      let hasError = false;
-      let cancel = false;
+      retry = false;
+      hasError = false;
+      cancel = false;
 
       try {
         await dm.send('**1) Please enter your complete name.**');
