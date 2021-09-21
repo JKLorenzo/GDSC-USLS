@@ -116,7 +116,7 @@ export default class Verify extends Component {
                   customId: 'no',
                   type: 'BUTTON',
                   label: 'No',
-                  style: 'SECONDARY',
+                  style: 'DANGER',
                 },
               ],
             },
@@ -128,8 +128,11 @@ export default class Verify extends Component {
           .then(res => {
             if (res.customId === 'yes') retry = true;
           })
-          // eslint-disable-next-line @typescript-eslint/no-empty-function
-          .catch(() => {});
+          .catch(() =>
+            dm.send(
+              'This verification process is automatically canceled. No response was received.',
+            ),
+          );
 
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         if (retry_msg.deletable) await retry_msg.delete().catch(() => {});
@@ -172,13 +175,13 @@ export default class Verify extends Component {
                   customId: 'confirm',
                   type: 'BUTTON',
                   label: 'Confirm',
-                  style: 'PRIMARY',
+                  style: 'SUCCESS',
                 },
                 {
                   customId: 'retry',
                   type: 'BUTTON',
                   label: 'Retry',
-                  style: 'SECONDARY',
+                  style: 'PRIMARY',
                 },
                 {
                   customId: 'cancel',
@@ -198,7 +201,12 @@ export default class Verify extends Component {
             if (res.customId === 'retry') retry = true;
             if (res.customId === 'cancel') cancel = true;
           })
-          .catch(() => (cancel = true));
+          .catch(() => {
+            cancel = true;
+            dm.send(
+              'This verification process is automatically canceled. No response was received.',
+            );
+          });
 
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         if (confirm_msg.deletable) await confirm_msg.delete().then(() => {});
@@ -207,7 +215,6 @@ export default class Verify extends Component {
     } while (retry);
 
     await dm.send("That's it! Please wait while our staff is reviewing your application.");
-
     await sendToChannel(constants.channels.member_screening, {
       embeds: [
         {
