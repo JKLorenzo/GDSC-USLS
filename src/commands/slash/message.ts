@@ -95,6 +95,7 @@ export default class Message extends Command {
 
 function parse(message: string): string | MessagePayload | MessageOptions {
   if (message === 'rules') return rules;
+  if (message === 'verify') return verify;
   return message;
 }
 
@@ -120,4 +121,15 @@ const rules: MessagePayload | MessageOptions = {
       'here: <https://discord.com/guidelines>',
   ].join('\n'),
   components: getComponent('rules'),
+};
+
+const verify: MessagePayload | MessageOptions = {
+  content: [
+    '**__VERIFICATION__**',
+    '',
+    "Before giving you access to all the features of this server, we'd like to ask a few simple questions.",
+    '',
+    "Once you're ready, just click the **Get Started** button down below.",
+  ].join('\n'),
+  components: getComponent('verify'),
 };
