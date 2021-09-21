@@ -62,6 +62,8 @@ export default class Verify extends Component {
 
     do {
       let hasError = false;
+      let cancel = false;
+
       try {
         await dm.send('**1) Please enter your complete name.**');
         result = await dm.awaitMessages({
@@ -129,11 +131,12 @@ export default class Verify extends Component {
           .then(res => {
             if (res.customId === 'yes') retry = true;
           })
-          .catch(() =>
+          .catch(() => {
+            cancel = true;
             dm.send(
               'This verification process is automatically canceled. No response was received.',
-            ),
-          );
+            );
+          });
 
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         if (retry_msg.deletable) await retry_msg.delete().catch(() => {});
@@ -195,7 +198,6 @@ export default class Verify extends Component {
           ],
         });
 
-        let cancel = false;
         await dm
           .awaitMessageComponent({ componentType: 'BUTTON', time: 60000 })
           .then(res => {
@@ -211,8 +213,8 @@ export default class Verify extends Component {
 
         // eslint-disable-next-line @typescript-eslint/no-empty-function
         if (confirm_msg.deletable) await confirm_msg.delete().then(() => {});
-        if (cancel) return;
       }
+      if (cancel) return;
     } while (retry);
 
     await dm.send("That's it! Please wait while our staff is reviewing your application.");
