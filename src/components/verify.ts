@@ -30,12 +30,17 @@ export default class Verify extends Component {
   }
 
   async exec(interaction: MessageComponentInteraction): Promise<unknown> {
-    if (limiter.limit(interaction.user.id)) return interaction.deferUpdate();
-
     const member = interaction.member as GuildMember;
     if (member.roles.cache.hasAny(constants.roles.member, constants.roles.core)) {
       return interaction.reply({
         content: "You don't need to reapply for verification as you're already verified.",
+        ephemeral: true,
+      });
+    }
+
+    if (limiter.limit(interaction.user.id)) {
+      return interaction.reply({
+        content: 'You can only reapply for verification once every minute. Please try again later.',
         ephemeral: true,
       });
     }
