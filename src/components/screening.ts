@@ -70,7 +70,7 @@ export default class Screening extends Component {
     }
 
     await interaction.update({
-      embeds: [embed],
+      embeds: [embed.setFooter('').setTimestamp()],
       components: [],
     });
   }
