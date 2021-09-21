@@ -42,8 +42,8 @@ export default class Verify extends Component {
     await sendToUser(
       member,
       [
-        `Hi ${member.user.username}, and welcome to the official community server of GDSC-USLS!`,
-        'You will be asked to answer a total of 4 questions, and you are given 30 seconds to answer each question.',
+        `Hi ${member.user.username}! Welcome to the official community server of GDSC-USLS.`,
+        'For verification purposes, we will ask you 4 questions and will be given 30 seconds to answer each question.',
       ].join('\n'),
     );
 
