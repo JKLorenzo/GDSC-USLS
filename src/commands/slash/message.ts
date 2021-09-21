@@ -75,7 +75,7 @@ export default class Message extends Command {
   }
 
   async exec(interaction: CommandInteraction): Promise<unknown> {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply();
     const subcommand = interaction.options.getSubcommand();
     const content = interaction.options.getString('content', true);
     let result;

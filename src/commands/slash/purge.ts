@@ -35,7 +35,7 @@ export default class Purge extends Command {
     const channel = interaction.channel as TextChannel;
     const message_count = interaction.options.getInteger('message_count', true);
 
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply();
 
     let retries = 3;
     let deleted_count = 0;

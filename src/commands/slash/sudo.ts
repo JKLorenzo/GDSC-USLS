@@ -55,7 +55,7 @@ export default class Sudo extends Command {
   }
 
   async exec(interaction: CommandInteraction): Promise<unknown> {
-    await interaction.deferReply({ ephemeral: true });
+    await interaction.deferReply();
 
     let command = interaction.options.getString('command', true);
 
