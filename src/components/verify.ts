@@ -43,7 +43,7 @@ export default class Verify extends Component {
       member,
       [
         `Hi ${member.user.username}! Welcome to the official community server of GDSC-USLS.`,
-        'For verification purposes, we will ask you 4 questions and will be given 30 seconds to answer each question.',
+        'For verification purposes, we will ask you 4 questions and will be given a minute to answer each question.',
       ].join('\n'),
     );
 
@@ -54,7 +54,7 @@ export default class Verify extends Component {
       await dm.send('**1) Please enter your complete name.**');
       result = await dm.awaitMessages({
         max: 1,
-        time: 30000,
+        time: 60000,
         errors: ['time'],
       });
       if (result.size === 0) throw new Error();
@@ -63,7 +63,7 @@ export default class Verify extends Component {
       await dm.send('**2) Please enter your year and section.**');
       result = await dm.awaitMessages({
         max: 1,
-        time: 30000,
+        time: 60000,
         errors: ['time'],
       });
       if (result.size === 0) throw new Error();
@@ -72,7 +72,7 @@ export default class Verify extends Component {
       await dm.send('**3) Please enter your ID number.**');
       result = await dm.awaitMessages({
         max: 1,
-        time: 30000,
+        time: 60000,
         errors: ['time'],
       });
       if (result.size === 0) throw new Error();
@@ -81,7 +81,7 @@ export default class Verify extends Component {
       await dm.send('**4) Please enter your preferred nickname.**');
       result = await dm.awaitMessages({
         max: 1,
-        time: 30000,
+        time: 60000,
         errors: ['time'],
       });
       if (result.size === 0) throw new Error();
