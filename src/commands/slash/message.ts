@@ -6,7 +6,7 @@ import {
   TextChannel,
 } from 'discord.js';
 import { getComponent } from '../../managers/interaction.js';
-import { sendToChannel, sendToUser } from '../../modules/message.js';
+import { sendToChannel, sendToUser } from '../../managers/message.js';
 import Command from '../../structures/command.js';
 import constants from '../../utils/contants.js';
 

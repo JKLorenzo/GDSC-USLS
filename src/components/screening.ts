@@ -1,5 +1,5 @@
 import { Guild, MessageComponentInteraction, MessageEmbed } from 'discord.js';
-import { addRole } from '../modules/role.js';
+import { addRole } from '../managers/role.js';
 import Component from '../structures/component.js';
 import constants from '../utils/contants.js';
 import { parseMention } from '../utils/functions.js';

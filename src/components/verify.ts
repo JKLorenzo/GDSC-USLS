@@ -1,7 +1,7 @@
 import { GuildMember, MessageComponentInteraction } from 'discord.js';
 import { client } from '../main.js';
 import { getComponent } from '../managers/interaction.js';
-import { sendToChannel, sendToUser } from '../modules/message.js';
+import { sendToChannel, sendToUser } from '../managers/message.js';
 import Component from '../structures/component.js';
 import constants from '../utils/contants.js';
 import { sleep } from '../utils/functions.js';
