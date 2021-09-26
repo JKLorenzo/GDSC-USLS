@@ -1,6 +1,7 @@
 import { Client, Intents } from 'discord.js';
 import { initGateway } from './managers/gateway.js';
 import { initInteraction } from './managers/interaction.js';
+import { initMessage } from './managers/message.js';
 import { initTelemetry } from './managers/telemetry.js';
 
 export const client = new Client({
@@ -26,6 +27,7 @@ client.on('ready', async () => {
   await initTelemetry();
   await initInteraction();
   await initGateway();
+  initMessage();
   console.log('initialized');
 });
 
