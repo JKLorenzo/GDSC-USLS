@@ -33,7 +33,7 @@ client.on('ready', async () => {
   await initTelemetry();
   await initInteraction();
   await initGateway();
-  initMessage();
+  await initMessage();
   console.log('initialized');
 });
 
