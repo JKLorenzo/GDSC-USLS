@@ -17,7 +17,9 @@ import Queuer from '../utils/queuer.js';
 
 const queuer = new Queuer(500);
 
-export function initMessage(): void {
+export async function initMessage(): Promise<void> {
+  await client.guilds.cache.get(constants.guild)?.members.fetch({ force: true });
+
   client.on('messageCreate', message => {
     if (message.author.bot) return;
 
