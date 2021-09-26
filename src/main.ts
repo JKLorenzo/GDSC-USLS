@@ -9,7 +9,13 @@ export const client = new Client({
     parse: ['everyone', 'roles', 'users'],
     repliedUser: true,
   },
-  intents: [Intents.FLAGS.DIRECT_MESSAGES, Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS],
+  intents: [
+    Intents.FLAGS.DIRECT_MESSAGES,
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_MESSAGES,
+  ],
+  partials: ['CHANNEL'],
   presence: {
     activities: [
       {
