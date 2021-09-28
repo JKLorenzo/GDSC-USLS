@@ -5,8 +5,7 @@ import {
   MessagePayload,
   TextChannel,
 } from 'discord.js';
-import { getComponent } from '../../managers/interaction.js';
-import { sendToChannel, sendToUser } from '../../managers/message.js';
+import { client } from '../../client.js';
 import Command from '../../structures/command.js';
 import constants from '../../utils/contants.js';
 
@@ -84,10 +83,10 @@ export default class Message extends Command {
       if (!(channel instanceof TextChannel)) {
         return interaction.editReply('This channel is not a text channel. Please try again.');
       }
-      result = await sendToChannel(channel, parse(content));
+      result = await client.managers.message.sendToChannel(channel, parse(content));
     } else if (subcommand === 'user') {
       const user = interaction.options.getUser('target', true);
-      result = await sendToUser(user, parse(content));
+      result = await client.managers.message.sendToUser(user, parse(content));
     }
     interaction.editReply(`Your message has been sent! Message ID: \`${result?.id}\``);
   }
@@ -120,7 +119,7 @@ const rules: MessagePayload | MessageOptions = {
     'This server also follows the Community Guidelines set by Discord; and you can read more of it ' +
       'here: <https://discord.com/guidelines>',
   ].join('\n'),
-  components: getComponent('rules'),
+  components: client.managers.interaction.getComponent('rules'),
 };
 
 const verify: MessagePayload | MessageOptions = {
@@ -131,5 +130,5 @@ const verify: MessagePayload | MessageOptions = {
     '',
     "Once you're ready, just click the **Get Started** button down below.",
   ].join('\n'),
-  components: getComponent('verify'),
+  components: client.managers.interaction.getComponent('verify'),
 };

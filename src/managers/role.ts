@@ -1,34 +1,40 @@
 import { CreateRoleOptions, GuildMember, Role } from 'discord.js';
-import { client } from '../main.js';
-import constants from '../utils/contants.js';
+import { GDSCClient } from '../client.js';
 import Queuer from '../utils/queuer.js';
 
-const maxRoles = 250;
-const queuer = new Queuer(500);
+export default class RoleManager {
+  client: GDSCClient;
+  queuer: Queuer;
+  max = 250;
 
-export function createRole(data: CreateRoleOptions): Promise<Role | undefined> {
-  return queuer.queue(async () => {
-    const guild = client.guilds.cache.get(constants.guild)!;
-    if (guild.roles.cache.size >= maxRoles) return;
-    const role = await guild.roles.create(data);
-    return role;
-  });
-}
+  constructor(client: GDSCClient) {
+    this.client = client;
+    this.queuer = new Queuer(500);
+  }
 
-export function deleteRole(role: Role): Promise<void> {
-  return queuer.queue(async () => {
-    await role.delete();
-  });
-}
+  create(data: CreateRoleOptions): Promise<Role | undefined> {
+    return this.queuer.queue(async () => {
+      if (this.client.guild.roles.cache.size >= this.max) return;
+      const role = await this.client.guild.roles.create(data);
+      return role;
+    });
+  }
 
-export function addRole(member: GuildMember, role: Role | Role[]): Promise<void> {
-  return queuer.queue(async () => {
-    await member.roles.add(role);
-  });
-}
+  delete(role: Role): Promise<void> {
+    return this.queuer.queue(async () => {
+      await role.delete();
+    });
+  }
 
-export function removeRole(member: GuildMember, role: Role | Role[]): Promise<void> {
-  return queuer.queue(async () => {
-    await member.roles.remove(role);
-  });
+  add(member: GuildMember, roleOrRoles: Role | Role[]): Promise<void> {
+    return this.queuer.queue(async () => {
+      await member.roles.add(roleOrRoles);
+    });
+  }
+
+  remove(member: GuildMember, roleOrRoles: Role | Role[]): Promise<void> {
+    return this.queuer.queue(async () => {
+      await member.roles.remove(roleOrRoles);
+    });
+  }
 }
