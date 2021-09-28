@@ -2,7 +2,7 @@
   "name": "gdsc-usls",
   "version": "1.0.0",
   "description": "A Discord Bot for Google Developer Student Clubs of University of St. La Salle.",
-  "main": "dist/main.js",
+  "main": "dist/client.js",
   "type": "module",
   "scripts": {
     "build": "tsc",

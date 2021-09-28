@@ -1,5 +1,5 @@
 import { Guild, MessageComponentInteraction, MessageEmbed } from 'discord.js';
-import { addRole } from '../managers/role.js';
+import { client } from '../client.js';
 import Component from '../structures/component.js';
 import constants from '../utils/contants.js';
 import { parseMention } from '../utils/functions.js';
@@ -52,7 +52,7 @@ export default class Screening extends Component {
 
     switch (customId) {
       case 'approve': {
-        await addRole(member, member_role);
+        await client.managers.role.add(member, member_role);
         await member.setNickname(nickname);
         embed.addField('Action:', `Approved by ${interaction.member}`);
         break;

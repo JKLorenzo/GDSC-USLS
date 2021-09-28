@@ -1,7 +1,5 @@
 import { GuildMember, MessageComponentInteraction } from 'discord.js';
-import { client } from '../main.js';
-import { getComponent } from '../managers/interaction.js';
-import { sendToChannel, sendToUser } from '../managers/message.js';
+import { client } from '../client.js';
 import Component from '../structures/component.js';
 import constants from '../utils/contants.js';
 import { sleep } from '../utils/functions.js';
@@ -46,7 +44,7 @@ export default class Verify extends Component {
     }
 
     await interaction.deferUpdate();
-    await sendToUser(
+    await client.managers.message.sendToUser(
       member,
       [
         `Hi ${member.user.username}! Welcome to the official community server of GDSC-USLS.`,
@@ -234,7 +232,7 @@ export default class Verify extends Component {
     } while (retry);
 
     await dm.send("That's it! Please wait while our staff is reviewing your application.");
-    await sendToChannel(constants.channels.member_screening, {
+    await client.managers.message.sendToChannel(constants.channels.member_screening, {
       embeds: [
         {
           author: { name: 'Google Developer Student Clubs - USLS' },
@@ -268,7 +266,7 @@ export default class Verify extends Component {
           color: 'BLURPLE',
         },
       ],
-      components: getComponent('screening'),
+      components: client.managers.interaction.getComponent('screening'),
     });
   }
 }

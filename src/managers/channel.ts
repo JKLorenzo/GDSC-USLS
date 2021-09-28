@@ -1,22 +1,28 @@
 import { GuildChannel, GuildChannelCreateOptions } from 'discord.js';
-import { client } from '../main.js';
-import constants from '../utils/contants.js';
+import { GDSCClient } from '../client.js';
 import Queuer from '../utils/queuer.js';
-
-const queuer = new Queuer(500);
 
 type createOptions = { name: string } & GuildChannelCreateOptions;
 
-export function createChannel(data: createOptions): Promise<GuildChannel> {
-  return queuer.queue(async () => {
-    const guild = client.guilds.cache.get(constants.guild)!;
-    const channel = await guild.channels.create(data.name, data);
-    return channel;
-  });
-}
+export default class ChannelManager {
+  client: GDSCClient;
+  queuer: Queuer;
 
-export function deleteChannel(channel: GuildChannel): Promise<void> {
-  return queuer.queue(async () => {
-    if (channel.deletable) await channel.delete();
-  });
+  constructor(client: GDSCClient) {
+    this.client = client;
+    this.queuer = new Queuer(500);
+  }
+
+  create(data: createOptions): Promise<GuildChannel> {
+    return this.queuer.queue(async () => {
+      const channel = await this.client.guild.channels.create(data.name, data);
+      return channel;
+    });
+  }
+
+  delete(channel: GuildChannel): Promise<void> {
+    return this.queuer.queue(async () => {
+      if (channel.deletable) await channel.delete();
+    });
+  }
 }

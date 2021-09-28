@@ -2,7 +2,7 @@ import util from 'util';
 import tags from 'common-tags';
 import { CommandInteraction, MessageEmbed, Util } from 'discord.js';
 import _ from 'lodash';
-import { client } from '../../main.js';
+import { client } from '../../client.js';
 import Command from '../../structures/command.js';
 import constants from '../../utils/contants.js';
 

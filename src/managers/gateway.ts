@@ -1,24 +1,26 @@
 import { GuildMember } from 'discord.js';
-import { addRole } from './role.js';
-import { logError } from './telemetry.js';
-import { client } from '../main.js';
+import { GDSCClient } from '../client.js';
 import constants from '../utils/contants.js';
 
-export function initGateway(): void {
-  client.on('guildMemberAdd', member => {
-    if (member.guild.id !== constants.guild) return;
-    if (member.user.bot) processBot(member);
-  });
-}
+export default class GatewayManager {
+  client: GDSCClient;
 
-// Add bot role to new bots
-async function processBot(member: GuildMember): Promise<void> {
-  try {
-    const guild = client.guilds.cache.get(constants.guild);
-    const botRole = guild?.roles.cache.get(constants.roles.bots);
-    if (!member.user.bot) return;
-    if (botRole) await addRole(member, botRole);
-  } catch (error) {
-    logError('Gateway', 'processBot', error);
+  constructor(client: GDSCClient) {
+    this.client = client;
+
+    client.on('guildMemberAdd', member => {
+      if (member.guild.id !== constants.guild) return;
+      if (member.user.bot) this.processBot(member);
+    });
+  }
+
+  private async processBot(member: GuildMember): Promise<void> {
+    try {
+      if (!member.user.bot) return;
+      const bot_role = this.client.role(constants.roles.bots);
+      if (bot_role) await this.client.managers.role.add(member, bot_role);
+    } catch (error) {
+      this.client.managers.telemetry.logError('Gateway', 'Process Bot', error);
+    }
   }
 }
