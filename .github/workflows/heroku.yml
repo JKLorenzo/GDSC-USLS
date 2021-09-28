@@ -27,7 +27,7 @@ jobs:
           heroku_app_name: 'gdsc-usls'
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          procfile: 'worker: node ./dist/main.js'
+          procfile: 'worker: node ./dist/client.js'
           buildpack: 'https://github.com/heroku/heroku-buildpack-nodejs.git'
         env:
           HD_BOT_TOKEN: ${{secrets.BOT_TOKEN}}
