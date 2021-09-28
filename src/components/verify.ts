@@ -266,7 +266,7 @@ export default class Verify extends Component {
           color: 'BLURPLE',
         },
       ],
-      components: client.managers.interaction.component('screening'),
+      components: client.managers.interaction.getComponent('screening'),
     });
   }
 }
