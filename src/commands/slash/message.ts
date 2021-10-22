@@ -4,7 +4,6 @@ import {
   MessageOptions,
   MessagePayload,
   TextBasedChannels,
-  TextChannel,
 } from 'discord.js';
 import { client } from '../../client.js';
 import Command from '../../structures/command.js';
@@ -118,7 +117,7 @@ export default class Message extends Command {
       const content = interaction.options.getString('content', true);
       if (subcommand === 'channel') {
         const channel = interaction.options.getChannel('target', true) as GuildChannel;
-        if (!(channel instanceof TextChannel)) {
+        if (!channel.isText()) {
           return interaction.editReply('This channel is not a text channel. Please try again.');
         }
         result = await client.managers.message.sendToChannel(channel, parse(content));

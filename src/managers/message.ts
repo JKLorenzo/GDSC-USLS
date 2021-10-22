@@ -44,7 +44,7 @@ export default class MessageManager {
   ): Promise<Message | undefined> {
     return this.queuer.queue(async () => {
       const this_channel = this.client.channel(channel);
-      if (this_channel instanceof TextChannel) {
+      if (this_channel?.isText()) {
         const result = await this_channel.send(data);
         return result;
       }
