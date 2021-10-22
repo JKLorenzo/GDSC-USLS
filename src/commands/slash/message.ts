@@ -3,6 +3,7 @@ import {
   GuildChannel,
   MessageOptions,
   MessagePayload,
+  TextBasedChannels,
   TextChannel,
 } from 'discord.js';
 import { client } from '../../client.js';
@@ -19,6 +20,11 @@ export default class Message extends Command {
         type: 'CHAT_INPUT',
         defaultPermission: false,
         options: [
+          {
+            name: 'relay',
+            description: "[Core] Resends the message you'll send to a channel.",
+            type: 'SUB_COMMAND',
+          },
           {
             name: 'channel',
             description: '[Core] Sends a message to a channel.',
@@ -74,20 +80,54 @@ export default class Message extends Command {
   }
 
   async exec(interaction: CommandInteraction): Promise<unknown> {
-    await interaction.deferReply();
-    const subcommand = interaction.options.getSubcommand();
-    const content = interaction.options.getString('content', true);
     let result;
-    if (subcommand === 'channel') {
-      const channel = interaction.options.getChannel('target', true) as GuildChannel;
-      if (!(channel instanceof TextChannel)) {
-        return interaction.editReply('This channel is not a text channel. Please try again.');
+    const subcommand = interaction.options.getSubcommand();
+
+    if (subcommand === 'relay') {
+      const user = interaction.user;
+      const channel = interaction.channel as TextBasedChannels;
+
+      await interaction.deferReply({ ephemeral: true });
+
+      try {
+        const messages = await channel.awaitMessages({
+          filter: msg => msg.author.id === user.id,
+          max: 1,
+          time: 60000,
+          errors: ['time'],
+        });
+
+        const message = messages.first();
+        if (!message) throw new Error('time');
+
+        result = await client.managers.message.sendToChannel(channel.id, {
+          content: message.content.length ? message.content : null,
+          files: [...message.attachments.values()],
+        });
+
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        message.delete().catch(() => {});
+      } catch (error) {
+        if (`${error}` === 'time') {
+          return interaction.editReply('Message Relay was cancelled due to inactivity.');
+        }
+        return interaction.editReply(`Message Relay was cancelled due to an error.\n${error}`);
       }
-      result = await client.managers.message.sendToChannel(channel, parse(content));
-    } else if (subcommand === 'user') {
-      const user = interaction.options.getUser('target', true);
-      result = await client.managers.message.sendToUser(user, parse(content));
+    } else {
+      await interaction.deferReply();
+      const content = interaction.options.getString('content', true);
+      if (subcommand === 'channel') {
+        const channel = interaction.options.getChannel('target', true) as GuildChannel;
+        if (!(channel instanceof TextChannel)) {
+          return interaction.editReply('This channel is not a text channel. Please try again.');
+        }
+        result = await client.managers.message.sendToChannel(channel, parse(content));
+      } else if (subcommand === 'user') {
+        const user = interaction.options.getUser('target', true);
+        result = await client.managers.message.sendToUser(user, parse(content));
+      }
     }
+
     interaction.editReply(`Your message has been sent! Message ID: \`${result?.id}\``);
   }
 }
