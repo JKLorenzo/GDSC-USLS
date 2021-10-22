@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { pathToFileURL } from 'url';
 import Discord, {
+  BaseMessageComponentOptions,
   Collection,
   CommandInteraction,
   MessageActionRowOptions,
@@ -92,7 +93,9 @@ export default class InteractionManager {
     }
   }
 
-  getComponent(name: string): MessageActionRowOptions[] | undefined {
+  getComponent(
+    name: string,
+  ): (Required<BaseMessageComponentOptions> & MessageActionRowOptions)[] | undefined {
     return this.components.get(name)?.options;
   }
 
