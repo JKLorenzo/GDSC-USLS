@@ -71,7 +71,7 @@ export default class Message extends Command {
         },
         permissions: {
           roles: {
-            allow: [constants.roles.core],
+            allow: [constants.roles.core_team],
           },
         },
       },

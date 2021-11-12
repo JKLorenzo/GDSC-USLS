@@ -29,7 +29,7 @@ export default class Verify extends Component {
 
   async exec(interaction: MessageComponentInteraction): Promise<unknown> {
     const member = interaction.member as GuildMember;
-    if (member.roles.cache.hasAny(constants.roles.member, constants.roles.core)) {
+    if (member.roles.cache.hasAny(constants.roles.member, constants.roles.core_team)) {
       return interaction.reply({
         content: "You don't need to reapply for verification as you're already verified.",
         ephemeral: true,

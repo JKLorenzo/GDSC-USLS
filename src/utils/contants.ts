@@ -9,7 +9,7 @@ export default {
     public_image_committee: '885165634277744711',
     social_media_committee: '888005107583688735',
     technical_committee: '885165191258599455',
-    core: '908712484989448222',
+    core_team: '908712484989448222',
     bots: '884285921766305802',
     member: '884284885257289778',
   },

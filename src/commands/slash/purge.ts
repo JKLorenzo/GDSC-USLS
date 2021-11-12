@@ -24,7 +24,7 @@ export default class Purge extends Command {
       {
         permissions: {
           roles: {
-            allow: [constants.roles.core],
+            allow: [constants.roles.core_team],
           },
         },
       },
