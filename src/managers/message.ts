@@ -29,8 +29,13 @@ export default class MessageManager {
 
       if (!guild) return this.processIncomingDM(message);
       if (guild.id !== constants.guild) return;
-      if (channel.parentId !== constants.channels.bot_dms) return;
-      return this.processOutgoingDM(message);
+
+      switch (channel.parentId) {
+        case constants.categories.information:
+          return this.processInformationMessage(message);
+        case constants.categories.bot_dms:
+          return this.processOutgoingDM(message);
+      }
     });
   }
 
@@ -62,11 +67,36 @@ export default class MessageManager {
     });
   }
 
+  private async processInformationMessage(message: Message): Promise<void> {
+    try {
+      const channel = message.channel as TextChannel;
+
+      const data = {
+        content: message.content.length ? message.content : null,
+        files: [...message.attachments.values()],
+      } as MessageOptions;
+
+      if (message.reference?.messageId) {
+        data.reply = {
+          messageReference: message.reference.messageId,
+          failIfNotExists: false,
+        };
+      }
+
+      await this.sendToChannel(channel, data);
+
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      message.delete().catch(() => {});
+    } catch (error) {
+      this.client.managers.telemetry.logError('Message', 'Process Information Message', error);
+    }
+  }
+
   private async processIncomingDM(message: Message): Promise<void> {
     try {
       const member = this.client.member(message.author.id);
       if (!member) return;
-      const dm_category = this.client.channel(constants.channels.bot_dms) as CategoryChannel;
+      const dm_category = this.client.channel(constants.categories.bot_dms) as CategoryChannel;
       const dm_channel =
         dm_category.children.find(
           c => c instanceof TextChannel && hasAny(c.topic ?? '*', member.toString()),
