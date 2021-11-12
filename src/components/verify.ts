@@ -56,8 +56,7 @@ export default class Verify extends Component {
     let result,
       name = '',
       section = '',
-      id = '',
-      nickname = '';
+      id = '';
 
     let retry = false,
       hasError = false,
@@ -98,15 +97,6 @@ export default class Verify extends Component {
         });
         if (result.size === 0) throw new Error();
         id = [...result.values()][0].content;
-
-        await dm.send('**4) Please enter your preferred nickname.**');
-        result = await dm.awaitMessages({
-          max: 1,
-          time: 60000,
-          errors: ['time'],
-        });
-        if (result.size === 0) throw new Error();
-        nickname = [...result.values()][0].content;
       } catch (error) {
         hasError = true;
 
@@ -173,10 +163,6 @@ export default class Verify extends Component {
                 {
                   name: 'ID Number:',
                   value: id,
-                },
-                {
-                  name: 'Preferred Nickname:',
-                  value: nickname,
                 },
               ],
               color: 'BLURPLE',
@@ -254,10 +240,6 @@ export default class Verify extends Component {
             {
               name: 'ID Number:',
               value: id,
-            },
-            {
-              name: 'Preferred Nickname:',
-              value: nickname,
             },
           ],
           footer: {
