@@ -40,7 +40,7 @@ export default class Screening extends Component {
     const guild = interaction.guild as Guild;
     const embed = interaction.message.embeds[0] as MessageEmbed;
     const member = guild.members.cache.get(parseMention(embed.fields[0].value));
-    const nickname = embed.fields[4].value;
+    const fullname = embed.fields[1].value;
     const member_role = guild.roles.cache.get(constants.roles.member)!;
 
     if (!member) {
@@ -53,7 +53,7 @@ export default class Screening extends Component {
     switch (customId) {
       case 'approve': {
         await client.managers.role.add(member, member_role);
-        await member.setNickname(nickname);
+        await member.setNickname(fullname);
         embed.addField('Action:', `Approved by ${interaction.member}`);
         break;
       }
