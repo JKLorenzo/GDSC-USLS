@@ -1,5 +1,6 @@
 import {
   CategoryChannel,
+  Formatters,
   GuildChannelResolvable,
   GuildMember,
   Message,
@@ -96,6 +97,7 @@ export default class MessageManager {
     try {
       const member = this.client.member(message.author.id);
       if (!member) return;
+
       const dm_category = this.client.channel(constants.categories.bot_dms) as CategoryChannel;
       const dm_channel =
         dm_category.children.find(
@@ -126,10 +128,26 @@ export default class MessageManager {
           });
       }
 
-      await this.sendToChannel(dm_channel, {
-        content: message.content.length ? message.content : null,
-        files: [...message.attachments.values()],
-      });
+      if (
+        message.content.includes(`@everyone`) ||
+        message.content.includes(`${this.client.guild.roles.everyone}`)
+      ) {
+        await this.sendToChannel(dm_channel, {
+          content: `${
+            message.author
+          } sent a message containing invalid or spam-like content:\n${Formatters.spoiler(
+            message.content,
+          )}`,
+        });
+      } else {
+        await this.sendToChannel(dm_channel, {
+          content: message.content.length ? message.content : null,
+          files: [...message.attachments.values()],
+          allowedMentions: {
+            parse: [],
+          },
+        });
+      }
     } catch (error) {
       this.client.managers.telemetry.logError('Message', 'Process Incoming DM', error);
     }
